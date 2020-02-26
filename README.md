@@ -34,12 +34,15 @@ The difference between port 6689 and 6688 can be read  in the [log.io docs](http
 
 ## Options
 
+```javascript
+{
   winston: require('winston')  // your winston logger
   port:6689,                   // default log.io port
   node_name: 'backend',        // default name
   host: '127.0.0.1',           // host ip
   forwardConsole:true          // forwards console.log e.g. to log.io
-}))
+}
+```
 
 
 ## Parse-server
