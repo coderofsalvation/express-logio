@@ -6,8 +6,10 @@ module.exports = function(opts){
     var logio = process.logio = new Logio(opts)
     opts.winston.addTransport(logio)
 
-    // start logio server
-    exec('./node_modules/.bin/log.io-server')
+    // start logio server if exists
+    var server = '/node_modules/.bin/log.io-server'
+    if( require('fs').existsSync(process.cwd()+server) )
+        exec(`.${server}`)
 
     if( opts.forwardConsole ){
         var levels = {
@@ -41,8 +43,6 @@ module.exports = function(opts){
       var mem     = process.memoryUsage()
       logio.log({level:"info",message:drawBar(100,load,'█')+' cpu',stream:"cpu        "})
       logio.log({level:"info",message:drawBar(mem.rss+mem.heapTotal,mem.heapUsed,'▒')+' mem',stream:"memory"})
-      console.log("this is a test",{stream:"mystream"})
-      console.log(new Date().getTime())
     },2000)
  
     return function(req,res,next){
