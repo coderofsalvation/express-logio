@@ -24,7 +24,7 @@ console.log("this is a test",{steam:"mystream"})
 cpu, memory and http-requests are logged automatically.
 The difference between port 6689 and 6688 can be read  in the [log.io docs](https://npmjs.com/log.io)
 
-> NOTE: Parse-server users: see parse-server section
+> NOTE: Parse-server users: see parse-server section below
 
 ## Install
 
