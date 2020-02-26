@@ -13,8 +13,6 @@ app.use( require('express-logio')({
   forwardConsole:true
 }))
 
-// now surf your browser to: http://localhost:6688
-
 // output to log.io 'backend' stream
 console.log("hello default")
 // output to log.io 'mystream' stream
@@ -24,9 +22,9 @@ console.log("this is a test",{steam:"mystream"})
 > Now surf to http://localhost:6688
 
 cpu, memory and http-requests are logged automatically.
+The difference between port 6689 and 6688 can be read  in the [log.io docs](https://npmjs.com/log.io)
 
-> NOTE 1: log.io-receiver runs on port 6689, but the webserver runs on 6688 (see [log.io](https://npmjs.com/log.io))
-> NOTE 2: Parse-server users: see parse-server section
+> NOTE: Parse-server users: see parse-server section
 
 ## Install
 
