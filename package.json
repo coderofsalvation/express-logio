@@ -1,11 +1,15 @@
 {
   "name": "express-logio",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "simple realtime log monitoring (standalone) as express middleware #log.io #winston3",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "coderofsalvation",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "http-proxy-middleware": "^1.0.0",
+    "string-replace-middleware": "0.0.1"
+  }
 }

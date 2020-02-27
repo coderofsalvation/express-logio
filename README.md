@@ -6,10 +6,13 @@ Thanks to the nifty standalone [log.io](https://npmjs.com/log.io) package you ca
 
 ```javascript
 app.use( require('express-logio')({
+  app,
+  url:'/log',
   winston: require('winston'),
   port:6689,
+  webport:6688,
   node_name: 'backend',
-  host: '127.0.0.1',
+  host: '0.0.0.0',
   forwardConsole:true
 }))
 
@@ -36,8 +39,11 @@ The difference between port 6689 and 6688 can be read  in the [log.io docs](http
 
 ```javascript
 {
+  app: app,                    // the express app
+  url:'/log',                  // where to access the log.io web interface
   winston: require('winston')  // your winston logger
   port:6689,                   // default log.io port
+  webport:6688,                // default log.io webserverport
   node_name: 'backend',        // default name
   host: '127.0.0.1',           // host ip
   forwardConsole:true          // forwards console.log e.g. to log.io
