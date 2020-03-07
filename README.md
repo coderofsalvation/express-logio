@@ -70,3 +70,7 @@ app.use( require('express-logio')({
 
 There aren't.
 Check the [log.io](https://npmjs.com/log.io) docs to add logfiles as well.
+
+* how do I search logfiles?
+
+check [https://stackoverflow.com/questions/35776646/how-do-i-see-logs-on-parse-server](https://stackoverflow.com/questions/35776646/how-do-i-see-logs-on-parse-server)
