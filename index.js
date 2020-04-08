@@ -9,7 +9,7 @@ function startServers(opts){
     var app = opts.app
     if( !require('fs').existsSync(logioServer) ) return
     var p = exec( logioServer )
-    //p.stdout.pipe(process.stdout)
+    if( process.env.DEBUG ) p.stdout.pipe(process.stdout)
     p.stderr.pipe(process.stderr)
 
     // rewrite some urls
@@ -55,12 +55,13 @@ module.exports = function(opts){
             log:"info",
             error:"error",
             warn:"warning"
-          }
+        }
         for( var i in levels){
             var level = levels[i]
             console[i] = function(level,old,message,opts){
                 old(message)
                 opts = opts || typeof opts == 'object' ? opts : {}
+                if( level == 'error' ) opts.stream = 'error'
                 logio.log({level,message,...opts})
             }.bind(console,level,console[i])
         }      
