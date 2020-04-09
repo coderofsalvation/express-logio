@@ -1,6 +1,6 @@
 {
   "name": "express-logio",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "simple realtime log monitoring (standalone) as express middleware #log.io #winston3",
   "main": "index.js",
   "scripts": {

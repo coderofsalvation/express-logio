@@ -12,6 +12,16 @@ function startServers(opts){
     if( process.env.DEBUG ) p.stdout.pipe(process.stdout)
     p.stderr.pipe(process.stderr)
 
+    // prepare proper cleanup to prevent duplicate servers
+    var signals = ['exit','SIGHUP','SIGINT','SIGUSR1','SIGUSR2']
+    signals.map( (s) => {
+        process.on(s, function(pid){
+            console.log(`killing log.io server (pid ${pid})`)
+            try{ process.kill(pid) }catch(e){}
+            process.exit()
+        }.bind(null,p.pid))
+    })
+    
     // rewrite some urls
     var replacer = stringReplace({
         '/static/css/main.a679e7ff.chunk.css': '/log/static/css/main.a679e7ff.chunk.css',
