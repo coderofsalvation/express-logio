@@ -32,6 +32,7 @@ function startServers(opts){
 
     app.use( (req,res,next) => {
         var logReferer = req.headers.referer && req.headers.referer.match(/\/log/)
+		req.url = req.url.replace(/^\/static/, '/log/static' )
         var logUrl     = req.url.match(/^\/log/)
         if( logReferer || logUrl ) return replacer(req,res,next)
         next()
