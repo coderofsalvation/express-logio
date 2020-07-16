@@ -7,20 +7,22 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 
 function startServers(opts){
     var app = opts.app
-    if( !require('fs').existsSync(logioServer) ) return
-    var p = exec( logioServer )
-    if( process.env.DEBUG ) p.stdout.pipe(process.stdout)
-    p.stderr.pipe(process.stderr)
+	if( !opts.noserver ){
+		if( !require('fs').existsSync(logioServer) ) return
+		var p = exec( logioServer )
+		if( process.env.DEBUG ) p.stdout.pipe(process.stdout)
+		p.stderr.pipe(process.stderr)
 
-    // prepare proper cleanup to prevent duplicate servers
-    var signals = ['exit','SIGHUP','SIGINT','SIGUSR1','SIGUSR2']
-    signals.map( (s) => {
-        process.on(s, function(pid){
-            console.log(`killing log.io server (pid ${pid})`)
-            try{ process.kill(pid) }catch(e){}
-            process.exit()
-        }.bind(null,p.pid))
-    })
+		// prepare proper cleanup to prevent duplicate servers
+		var signals = ['exit','SIGHUP','SIGINT','SIGUSR1','SIGUSR2']
+		signals.map( (s) => {
+			process.on(s, function(pid){
+				console.log(`killing log.io server (pid ${pid})`)
+				try{ process.kill(pid) }catch(e){}
+				process.exit()
+			}.bind(null,p.pid))
+		})
+	}
     
     // rewrite some urls
     var replacer = stringReplace({
@@ -49,7 +51,7 @@ function startServers(opts){
 }
 
 module.exports = function(opts){
-    var requiredProps  = ['app','winston','host','port','node_name']
+    var requiredProps  = ['app','winston','host','node_name']
     for( var i in requiredProps ) 
         if( !opts[requiredProps[i]] ) 
             throw requiredProps[i]+' not found in express-logio opts'
@@ -94,7 +96,7 @@ module.exports = function(opts){
       var mem     = process.memoryUsage()
       logio.log({level:"info",message:drawBar(100,load,'█')+' cpu',stream:"cpu        "})
       logio.log({level:"info",message:drawBar(mem.rss+mem.heapTotal,mem.heapUsed,'▒')+' mem',stream:"memory"})
-    },2000)
+    },4000)
  
     return function(req,res,next){
         try{
